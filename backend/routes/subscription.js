@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/subscriptionController');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect);
+router.post('/', authorize('customer'), c.createSubscription);
+router.get('/my', authorize('customer'), c.getMySubscriptions);
+router.post('/skip', authorize('customer'), c.skipMeals);
+router.post('/unskip', authorize('customer'), c.unskipMeal);
+router.put('/:id/pause', authorize('customer'), c.pauseSubscription);
+router.put('/:id/resume', authorize('customer'), c.resumeSubscription);
+module.exports = router;

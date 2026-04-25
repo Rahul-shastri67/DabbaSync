@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const c = require('../controllers/orderController');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect);
+router.get('/today', authorize('customer'), c.getTodayOrders);
+router.get('/history', authorize('customer'), c.getOrderHistory);
+router.put('/:id/cancel', authorize('customer'), c.cancelOrder);
+router.put('/:id/rate', authorize('customer'), c.rateOrder);
+router.put('/:id/status', authorize('vendor'), c.updateOrderStatus);
+module.exports = router;

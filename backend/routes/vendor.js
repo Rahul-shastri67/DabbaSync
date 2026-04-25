@@ -1,0 +1,15 @@
+const router = require('express').Router();
+const c = require('../controllers/vendorController');
+const { protect, authorize } = require('../middleware/auth');
+router.use(protect);
+router.get('/profile', authorize('vendor'), c.getVendorProfile);
+router.post('/profile', authorize('vendor'), c.createVendorProfile);
+router.put('/profile', authorize('vendor'), c.updateVendorProfile);
+router.get('/dashboard', authorize('vendor'), c.getDashboard);
+router.get('/orders', authorize('vendor'), c.getVendorOrders);
+router.get('/subscriptions', authorize('vendor'), c.getVendorSubscriptions);
+router.get('/analytics', authorize('vendor'), c.getAnalytics);
+router.post('/meal-plans', authorize('vendor'), c.createMealPlan);
+router.put('/meal-plans/:id', authorize('vendor'), c.updateMealPlan);
+router.delete('/meal-plans/:id', authorize('vendor'), c.deleteMealPlan);
+module.exports = router;
